@@ -7,17 +7,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
+<body>
+  <!-- INTRO SCREEN -->
   <div id="intro-screen" style="text-align:center; padding:30px;">
-  <h2>🎧 Welcome to the Spelling Quiz!</h2>
-  <p>Listen carefully and type the word you hear. Test your listening and spelling skills!</p>
-  <button id="start-btn">Start Quiz</button>
-</div>
+    <h2>🎧 Welcome to the Spelling Quiz!</h2>
+    <p>Listen carefully and type the word you hear. Test your listening and spelling skills!</p>
+    <p id="total-count">📚 Words in Database: Loading...</p>
+    <button id="start-btn">Start Quiz</button>
+  </div>
 
-<div id="quiz-section" style="display:none;"> 
- <body>
- <button id="next-btn" style="display:none;">Next</button>
-  <div id="wordCount" style="position: absolute; top: 10px; left: 10px; font-weight: bold;"></div>
-  <div class="container">
+  <!-- QUIZ SECTION -->
+  <div id="quiz-section" style="display:none; text-align:center; padding:20px;">
+    <div id="wordCount" style="position: absolute; top: 10px; left: 10px; font-weight: bold;"></div>
+    
     <h1>Spelling Quiz</h1>
     <p id="progress">Word 1 of 10</p>
     
@@ -25,11 +27,12 @@
     
     <input type="text" id="answer" placeholder="Type the spelling here">
     <button id="check-btn">Check</button>
+    <button id="next-btn" style="display:none;">Next</button>
     
     <p id="result"></p>
     <p id="final-score" style="display:none;"></p>
   </div>
-</div>
+
   <script src="script.js"></script>
 </body>
 </html>
