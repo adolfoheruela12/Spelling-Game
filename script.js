@@ -3,7 +3,8 @@ let quizWords = [];
 let currentWord = null;
 let currentIndex = 0;
 let score = 0;
-let totalWords = 10; // will be set after loading data
+let totalWords = 10; // default limit
+let allWordCount = 0;
 
 // Load JSON database
 fetch('data/words.json')
@@ -13,28 +14,34 @@ fetch('data/words.json')
   })
   .then(data => {
     words = data || [];
+    allWordCount = words.length;
+
     if (words.length === 0) {
       document.body.innerHTML = '<p style="padding:20px;">No words found in data/words.json. Add some entries and refresh.</p>';
       return;
     }
 
-    // ⚡ NEW: show total words available in the database
-    const wordCountEl = document.getElementById("wordCount");
-    if (wordCountEl) {
-      wordCountEl.textContent = `Words in database: ${words.length}`;
-    }
+    // Display total words in database
+    document.getElementById("total-count").textContent = `📚 Words in Database: ${allWordCount}`;
 
-    // set totalWords to the smaller of 10 or available words
-    totalWords = Math.min(10, words.length);
-    startQuiz();
+    // Wait for player to click Start
+    document.getElementById("start-btn").addEventListener("click", () => {
+      document.getElementById("intro-screen").style.display = "none";
+      document.getElementById("quiz-section").style.display = "block";
+      startQuiz();
+    });
   })
   .catch(err => {
     console.error(err);
     document.body.innerHTML = `<p style="padding:20px;color:red;">Error loading words.json: ${err.message}</p>`;
   });
 
+// ---------------------------
+// QUIZ FUNCTIONS
+// ---------------------------
+
 function startQuiz() {
-  // Randomly select `totalWords` unique words
+  totalWords = Math.min(10, words.length);
   quizWords = shuffleArray(words).slice(0, totalWords);
   currentIndex = 0;
   score = 0;
@@ -46,21 +53,23 @@ function loadWord() {
   document.getElementById("progress").textContent = `Word ${currentIndex + 1} of ${totalWords}`;
   document.getElementById("result").textContent = "";
   document.getElementById("answer").value = "";
-  // ensure play button enabled
+  document.getElementById("next-btn").style.display = "none";
+  document.getElementById("check-btn").disabled = false;
   document.getElementById("play-btn").disabled = false;
 }
 
+// Play Audio
 document.getElementById("play-btn").addEventListener("click", () => {
   if (!currentWord) return;
   const audio = new Audio(`audio/${currentWord.audio}`);
   audio.play().catch(err => {
     console.warn('Audio play failed:', err);
-    // optional: show a small message
     document.getElementById("result").textContent = "Unable to play audio (check file path).";
     document.getElementById("result").style.color = "orange";
   });
 });
 
+// Check Answer
 document.getElementById("check-btn").addEventListener("click", () => {
   if (!currentWord) return;
   const answer = document.getElementById("answer").value.trim().toLowerCase();
@@ -75,34 +84,40 @@ document.getElementById("check-btn").addEventListener("click", () => {
     result.style.color = "red";
   }
 
-  // prevent double-submits while waiting
+  // Disable check, show Next
   document.getElementById("check-btn").disabled = true;
-  setTimeout(() => {
-    currentIndex++;
-    if (currentIndex < totalWords) {
-      document.getElementById("check-btn").disabled = false;
-      loadWord();
-    } else {
-      showFinalScore();
-    }
-  }, 1000);
+  document.getElementById("next-btn").style.display = "inline-block";
 });
 
+// Go to next word
+document.getElementById("next-btn").addEventListener("click", () => {
+  currentIndex++;
+  document.getElementById("next-btn").style.display = "none";
+  document.getElementById("check-btn").disabled = false;
+
+  if (currentIndex < totalWords) {
+    loadWord();
+  } else {
+    showFinalScore();
+  }
+});
+
+// Final Score
 function showFinalScore() {
   document.getElementById("progress").style.display = "none";
   document.getElementById("play-btn").style.display = "none";
   document.getElementById("check-btn").style.display = "none";
+  document.getElementById("next-btn").style.display = "none";
   document.getElementById("answer").style.display = "none";
 
   const final = document.getElementById("final-score");
   final.style.display = "block";
   final.textContent = `🎉 You scored ${score}/${totalWords}!`;
-
   document.getElementById("result").textContent = "";
 }
 
+// Utility: Shuffle array
 function shuffleArray(array) {
-  // Fisher–Yates shuffle is better than sort(() => ...)
   const arr = array.slice();
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
