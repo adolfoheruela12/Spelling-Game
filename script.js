@@ -17,6 +17,13 @@ fetch('data/words.json')
       document.body.innerHTML = '<p style="padding:20px;">No words found in data/words.json. Add some entries and refresh.</p>';
       return;
     }
+
+    // ⚡ NEW: show total words available in the database
+    const wordCountEl = document.getElementById("wordCount");
+    if (wordCountEl) {
+      wordCountEl.textContent = `Words in database: ${words.length}`;
+    }
+
     // set totalWords to the smaller of 10 or available words
     totalWords = Math.min(10, words.length);
     startQuiz();
