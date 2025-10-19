@@ -6,7 +6,15 @@
   <title>Spelling Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+  <div id="intro-screen" style="text-align:center; padding:30px;">
+  <h2>🎧 Welcome to the Spelling Quiz!</h2>
+  <p>Listen carefully and type the word you hear. Test your listening and spelling skills!</p>
+  <button id="start-btn">Start Quiz</button>
+</div>
+
+<div id="quiz-section" style="display:none;"> 
+ <body>
   <div id="wordCount" style="position: absolute; top: 10px; left: 10px; font-weight: bold;"></div>
   <div class="container">
     <h1>Spelling Quiz</h1>
@@ -20,7 +28,7 @@
     <p id="result"></p>
     <p id="final-score" style="display:none;"></p>
   </div>
-
+</div>
   <script src="script.js"></script>
 </body>
 </html>
