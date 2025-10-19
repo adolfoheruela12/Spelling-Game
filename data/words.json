@@ -1,3 +1,12 @@
 [
-  { "word": "banana", "audio": "banana.mp3" }
+  { "word": "apple", "audio": "apple.mp3" },
+  { "word": "chair", "audio": "chair.mp3" },
+  { "word": "coffee", "audio": "coffee.mp3" },
+  { "word": "flower", "audio": "flower.mp3" },
+  { "word": "music", "audio": "music.mp3" },
+  { "word": "orange", "audio": "orange.mp3" },
+  { "word": "pencil", "audio": "pencil.mp3" },
+  { "word": "school", "audio": "school.mp3" },
+  { "word": "tiger", "audio": "tiger.mp3" },
+  { "word": "water", "audio": "water.mp3" }
 ]
