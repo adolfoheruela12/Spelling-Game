@@ -6,7 +6,7 @@ let score = 0;
 let totalWords = 10; // will be set after loading data
 
 // Load JSON database
-fetch('words.json')
+fetch('data/words.json')
   .then(response => {
     if (!response.ok) throw new Error('Could not load data/words.json');
     return response.json();
