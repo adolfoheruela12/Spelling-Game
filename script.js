@@ -5,7 +5,7 @@ let currentIndex = 0;
 let score = 0;
 
 // Load JSON database
-fetch('data/words.json')
+fetch('words.json')
   .then(response => response.json())
   .then(data => {
     words = data;
