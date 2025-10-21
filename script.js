@@ -3,7 +3,7 @@ let quizWords = [];
 let currentWord = null;
 let currentIndex = 0;
 let score = 0;
-let totalWords = 10; // default limit
+let totalWords = 10;
 let allWordCount = 0;
 
 // Load JSON database
@@ -21,15 +21,18 @@ fetch('data/words.json')
       return;
     }
 
-    // Display total words in database
-    document.getElementById("total-count").textContent = `📚 Words in Database: ${allWordCount}`;
+    // Always show total word count
+    document.getElementById("wordCount").textContent = `📚 Words in Database: ${allWordCount}`;
 
-    // Wait for player to click Start
+    // Start button
     document.getElementById("start-btn").addEventListener("click", () => {
       document.getElementById("intro-screen").style.display = "none";
       document.getElementById("quiz-section").style.display = "block";
       startQuiz();
     });
+
+    // Quit button
+    document.getElementById("quit-btn").addEventListener("click", handleQuit);
   })
   .catch(err => {
     console.error(err);
@@ -58,7 +61,6 @@ function loadWord() {
   document.getElementById("play-btn").disabled = false;
 }
 
-// Play Audio
 document.getElementById("play-btn").addEventListener("click", () => {
   if (!currentWord) return;
   const audio = new Audio(`audio/${currentWord.audio}`);
@@ -69,7 +71,6 @@ document.getElementById("play-btn").addEventListener("click", () => {
   });
 });
 
-// Check Answer
 document.getElementById("check-btn").addEventListener("click", () => {
   if (!currentWord) return;
   const answer = document.getElementById("answer").value.trim().toLowerCase();
@@ -84,12 +85,10 @@ document.getElementById("check-btn").addEventListener("click", () => {
     result.style.color = "red";
   }
 
-  // Disable check, show Next
   document.getElementById("check-btn").disabled = true;
   document.getElementById("next-btn").style.display = "inline-block";
 });
 
-// Go to next word
 document.getElementById("next-btn").addEventListener("click", () => {
   currentIndex++;
   document.getElementById("next-btn").style.display = "none";
@@ -102,7 +101,6 @@ document.getElementById("next-btn").addEventListener("click", () => {
   }
 });
 
-// Final Score
 function showFinalScore() {
   document.getElementById("progress").style.display = "none";
   document.getElementById("play-btn").style.display = "none";
@@ -116,7 +114,23 @@ function showFinalScore() {
   document.getElementById("result").textContent = "";
 }
 
-// Utility: Shuffle array
+// Quit function
+function handleQuit() {
+  const confirmQuit = confirm("Are you sure you want to quit the quiz?");
+  if (confirmQuit) {
+    // Reset everything and return to main menu
+    document.getElementById("quiz-section").style.display = "none";
+    document.getElementById("intro-screen").style.display = "block";
+    document.getElementById("progress").style.display = "block";
+    document.getElementById("play-btn").style.display = "inline-block";
+    document.getElementById("check-btn").style.display = "inline-block";
+    document.getElementById("answer").style.display = "inline-block";
+    document.getElementById("final-score").style.display = "none";
+    document.getElementById("result").textContent = "";
+  }
+}
+
+// Shuffle helper
 function shuffleArray(array) {
   const arr = array.slice();
   for (let i = arr.length - 1; i > 0; i--) {
