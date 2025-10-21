@@ -8,18 +8,24 @@
 </head>
 
 <body>
+  <!-- Word Count (ALWAYS visible) -->
+  <div id="wordCount" style="position: absolute; top: 10px; left: 10px; font-weight: bold;">
+    📚 Words in Database: Loading...
+  </div>
+
   <!-- INTRO SCREEN -->
   <div id="intro-screen" style="text-align:center; padding:30px;">
     <h2>🎧 Welcome to the Spelling Quiz!</h2>
     <p>Listen carefully and type the word you hear. Test your listening and spelling skills!</p>
-    <p id="total-count">📚 Words in Database: Loading...</p>
     <button id="start-btn">Start Quiz</button>
   </div>
 
   <!-- QUIZ SECTION -->
   <div id="quiz-section" style="display:none; text-align:center; padding:20px;">
-    <div id="wordCount" style="position: absolute; top: 10px; left: 10px; font-weight: bold;"></div>
-    
+    <div style="position:absolute; top:10px; right:10px;">
+      <button id="quit-btn" style="background:#c00; color:white; border:none; padding:5px 10px; border-radius:5px;">Quit</button>
+    </div>
+
     <h1>Spelling Quiz</h1>
     <p id="progress">Word 1 of 10</p>
     
