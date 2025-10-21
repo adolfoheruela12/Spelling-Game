@@ -8,5 +8,15 @@
   { "word": "pencil", "audio": "pencil.mp3" },
   { "word": "school", "audio": "school.mp3" },
   { "word": "tiger", "audio": "tiger.mp3" },
-  { "word": "water", "audio": "water.mp3" }
+  { "word": "water", "audio": "water.mp3" },
+  { "word": "architect", "audio": "architect.mp3" },
+  { "word": "bargain", "audio": "bargain.mp3" },
+  { "word": "consequence", "audio": "consequence.mp3" },
+  { "word": "disaster", "audio": "disaster.mp3" },
+  { "word": "envelope", "audio": "envelope.mp3" },
+  { "word": "fragile", "audio": "fragile.mp3" },
+  { "word": "journey", "audio": "journey.mp3" },
+  { "word": "mystery", "audio": "mystery.mp3" },
+  { "word": "predict", "audio": "predict.mp3" },
+  { "word": "translate", "audio": "translate.mp3" }
 ]
